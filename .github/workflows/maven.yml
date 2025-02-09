@@ -44,7 +44,6 @@ jobs:
         GOOS=linux GOARCH=amd64 go build -o pinger main.go
         chmod +x pinger
         mv pinger ../src/main/resources/testData
-        ls -lah src/main/resources/testData
      
     - name: Run Tests
       run: mvn test
