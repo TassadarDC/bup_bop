@@ -1,0 +1,35 @@
+{
+	"min_successful_pings": 1,
+	"max_pings": 1,
+	"endpoints": [
+		{
+			"addr": "1.1.1.1",
+			"description": "Cloudflare DNS",
+			"ignore": false
+		},
+		{
+			"addr": "8.8.8.8",
+			"description": "Google DNS",
+			"ignore": false
+		},
+		{
+			"addr": "192.168.0.1",
+			"description": "My Router",
+			"ignore": false
+		},
+		{
+			"addr": "192.168.0.101",
+			"description": "My Grandma",
+			"ignore": false
+		},
+		{
+			"addr": "192.168.0.102",
+			"description": "My S/O LAN",
+			"ignore": true
+		},
+		{
+			"addr": "123.123.123.123",
+			"description": "My S/O WAN",
+			"ignore": false
+		}
+

@@ -2,13 +2,15 @@ package smoke;
 
 import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NS01_Smoke_VerifyApplicationLaunchesCorrectly {
+public class TC001_VerifyApplicationIsRunnable {
 
     @Test
-    public void verifyApplicationIsRunnable() {
+    @Description("Verify application usage message when no arguments are provided")
+    public void test() {
         TestDataDto testDataDto = new TestDataDto();
         testDataDto.getInputDataFile().setName("");
         testDataDto.getOutputDataFile().setName("");

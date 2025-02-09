@@ -14,10 +14,26 @@ import java.io.IOException;
 public final class FileUtils {
     public static void checkIfFileExists(String path) {
         File file = new File(path);
-        if (!file.exists()) {
-            log.error("File {} does not exist!", path);
-            System.exit(1);
+        if (!file.exists() || file.isDirectory()) {
+            log.error("File does not exist or is a directory: {}", path);
+            throw new IllegalArgumentException("File not found: " + path);
         }
+        log.info("File exists: {}", path);
+    }
+
+    public static File getFile(String path) {
+        checkIfFileExists(path);
+        File file = new File(path);
+        if (!file.canRead()) {
+            log.error("File exists but cannot be read: {}", path);
+            throw new IllegalStateException("File cannot be read: " + path);
+        }
+        log.info("Successfully retrieved file: {}", path);
+        return file;
+    }
+
+    public static boolean hasJsonExtension(File file) {
+        return file.getName().toLowerCase().endsWith(".json");
     }
 
     @SneakyThrows

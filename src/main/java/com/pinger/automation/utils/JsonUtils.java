@@ -6,12 +6,15 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.pinger.automation.core.model.CustomException;
 import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -32,8 +35,24 @@ public final class JsonUtils {
         try {
             return mapper.readValue(input, typeReference);
         } catch (Exception e) {
-            throw new JsonGenerationException("Could not convert String to JSON object", e);
+            throw new JsonSyntaxException("Could not convert String to JSON object", e);
         }
+    }
+
+    public static boolean isValidJson(File file) {
+        if (file == null || !file.exists() || !file.isFile()) {
+            throw new IllegalArgumentException("Invalid file: " + (file != null ? file.getAbsolutePath() : "file is null."));
+        }
+
+        try (FileReader reader = new FileReader(file)) {
+            JsonParser.parseReader(reader);
+            return true; // JSON is valid
+        } catch (JsonSyntaxException e) {
+            System.err.println("Invalid JSON structure: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+        return false;
     }
 
     public static File createFileFromDto(InputDataDto dto, String filePath) {
@@ -50,7 +69,6 @@ public final class JsonUtils {
             throw new CustomException("Failed to save DTO: {}", e);
         }
     }
-
 
     private static ObjectWriter getObjectWriter() {
         ObjectMapper mapper = new ObjectMapper();

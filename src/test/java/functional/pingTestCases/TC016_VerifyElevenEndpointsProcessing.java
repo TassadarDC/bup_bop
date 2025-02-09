@@ -5,26 +5,32 @@ import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
-import com.pinger.automation.core.model.enums.Endpoints;
+import com.pinger.automation.core.model.enums.Endpoint;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class NS01_CloudFlareTest extends BasePingTests {
+public class TC016_VerifyElevenEndpointsProcessing extends BasePingTests {
     private TestDataDto testData;
 
     @BeforeClass
     public void setupTestConfig() {
         InputDataDto inputDto = new InputDataDto();
-        inputDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoints.GOOGLE_DNS),
-                new EndpointDto(Endpoints.CLOUDFLARE)));
+
+        List<EndpointDto> list = Arrays.stream(Endpoint.values())
+                .map(EndpointDto::new)
+                .toList();
+
+        inputDto.setMaxPings(3).setMinSuccessfulPings(2).setEndpoints(list);
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), inputDto);
     }
 
     @Test
-    @Description("NS01_CloudFlareTest")
+    @Description("Positive case scenario")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);

@@ -4,13 +4,13 @@ import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
 import com.pinger.automation.core.model.entites.dto.input.PingerInputDataFile;
 import com.pinger.automation.core.model.entites.dto.output.PingerOutputDataFile;
-import com.pinger.automation.core.model.enums.Endpoints;
+import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.FileUtils;
 import com.pinger.automation.utils.PingerConfig;
 
 public class PingerTestDataFactory {
     private static final PingerInputDataDtoFactory PINGER_INPUT_DATA_DTO_FACTORY = new PingerInputDataDtoFactory();
-    public static TestDataDto createTestDataDto(Class clazz, Endpoints endpoint) {
+    public static TestDataDto createTestDataDto(Class clazz, Endpoint endpoint) {
         //Generate dto for test input data
         InputDataDto inputDto = PINGER_INPUT_DATA_DTO_FACTORY.getPingDataDto(endpoint);
         return createTestDataDto(clazz, inputDto);

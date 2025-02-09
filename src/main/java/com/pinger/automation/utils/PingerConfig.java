@@ -17,4 +17,7 @@ public class PingerConfig {
     public static String getPingerExecutable() {
         return getString("pinger.executable");
     }
+    public static String getPingerJsonSchema() {
+        return getString("pinger.pingerSchema");
+    }
 }
