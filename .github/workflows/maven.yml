@@ -46,47 +46,35 @@ jobs:
         mv pinger ../src/main/resources/testData
      
     - name: Run Tests
-      run: mvn clean test
+      run: mvn test
       continue-on-error: true
+      
+    - name: Check Maven Test Execution
+      run: cat target/surefire-reports/*.txt || echo "No test reports found"
 
+    - name: Debug Allure Results
+      run: ls -R target || echo "target directory not found"
+      
     - name: Generate Allure Report
-      uses: simple-elf/allure-report-action@v1
-      with:
-        results: allure-results
-        report: allure-report
+      run: mvn allure:report
 
-    - name: Upload Allure Report to GitHub Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: allure-report
-
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v1
-
-    # - name: Debug Allure Results
-    #   run: ls -R target || echo "target directory not found"
+    - name: Check Allure Results Directory
+      run: ls -la target/allure-results || echo "Directory not found"
       
-    # - name: Generate Allure Report
-    #   run: mvn allure:report
-
-    # - name: Check Allure Results Directory
-    #   run: ls -la target/allure-results || echo "Directory not found"
-      
-    # - name: Upload Allure Results
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: allure-report
-    #     path: target/site/allure-maven-plugin
+    - name: Upload Allure Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: target/site/allure-maven-plugin
     
-    # - name: Setup Git Identity
-    #   run: |
-    #     git config --global user.name "github-actions[bot]"
-    #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Setup Git Identity
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
     
-    # - name: Commit and Push to gh-pages Branch
-    #   run: |
-    #     git fetch origin gh-pages || git checkout --orphan gh-pages
-    #     git add -f target/allure-results
-    #     git commit -m "Update Allure report" || echo "No changes to commit"
-    #     git push origin HEAD:gh-pages --force
+    - name: Commit and Push to gh-pages Branch
+      run: |
+        git fetch origin gh-pages || git checkout --orphan gh-pages
+        git add -f target/allure-results
+        git commit -m "Update Allure report" || echo "No changes to commit"
+        git push origin HEAD:gh-pages --force
