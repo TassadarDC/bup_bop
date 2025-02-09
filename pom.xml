@@ -35,13 +35,6 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -100,10 +93,15 @@
             <artifactId>allure-testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
     </dependencies>
-<!-- Define the version of Allure you want to use via the allure.version property -->
+    <!-- Define the version of Allure you want to use via the allure.version property -->
 
-<!-- Add allure-bom to dependency management to ensure correct versions of all the dependencies are used -->
+    <!-- Add allure-bom to dependency management to ensure correct versions of all the dependencies are used -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -115,5 +113,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-         
+
 </project>
