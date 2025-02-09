@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Allure Report CI
 
 on:
   workflow_dispatch:
@@ -17,71 +17,60 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
     - name: Set up JDK 21
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v3
       with:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-
+    
     - name: Checkout Pinger Repository
       run: git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/TassadarDC/Norbert.git pinger-src
 
-    - name: Install Allure
-      run: |
-          sudo apt update
-          sudo apt install -y allure
-
     - name: Install Go & Build `pinger`
       run: |
-        sudo apt-get update && sudo apt-get install -y golang
-        cd pinger-src
-        GOOS=linux GOARCH=amd64 go build -o pinger main.go
-        chmod +x pinger
-        mv pinger ../src/main/resources/
-
-    - name: Verify `pinger` Exists
-      run: ls -lah src/main/resources/
-     
-    - name: Check `pinger` Format
-      run: file src/main/resources/pinger
-      
+          sudo apt-get update && sudo apt-get install -y golang
+          cd pinger-src
+          GOOS=linux GOARCH=amd64 go build -o pinger main.go
+          chmod +x pinger
+          mv pinger ../src/main/resources/testData
+           
     - name: Run Tests
-      run: mvn test
-      continue-on-error: true
+      run: mvn clean test -X
       
-    - name: Check Maven Test Execution
-      run: cat target/surefire-reports/*.txt || echo "No test reports found"
-
-    - name: Debug Allure Results
-      run: ls -R target || echo "target directory not found"
-      
-    - name: Generate Allure Report
-      run: mvn allure:report
-
-    - name: Check Allure Results Directory
-      run: ls -la target/allure-results || echo "Directory not found"
-      
-    - name: Upload Allure Results
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@master
       with:
-        name: allure-report
-        path: target/site/allure-maven-plugin
+        name: allure-results
+        path: allure-results
+        retention-days: 20
+        
+    - name: Get Allure history
+      uses: actions/checkout@v2
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+    
+    - name: Test marketplace action
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      id: allure-report
+      with:
+        allure_results: allure-results
+        gh_pages: gh-pages
+        allure_report: allure-report
+        allure_history: allure-history
+        keep_reports: 20
 
-    
-    - name: Setup Git Identity
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-    
-    - name: Commit and Push to gh-pages Branch
-      run: |
-        git fetch origin gh-pages || git checkout --orphan gh-pages
-        git add -f target/allure-results
-        git commit -m "Update Allure report" || echo "No changes to commit"
-        git push origin HEAD:gh-pages --force
+    - name: Deploy report to Github Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v2
+      env:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: allure-history

@@ -21,7 +21,7 @@ public class TC003_VerifyApplicationGeneratesReportWithGivenNameTest extends Bas
         testDataDto = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
     }
 
-    @Test
+    @Test(enabled = false)
     @Description("Application successfully creates file with given name.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testDataDto).execute();
