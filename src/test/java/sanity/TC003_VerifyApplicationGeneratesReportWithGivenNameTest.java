@@ -5,7 +5,6 @@ import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.FileUtils;
-import com.pinger.automation.utils.JsonUtils;
 import functional.BasePingTests;
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -14,20 +13,22 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 
-public class TC005_VerifyReportIsValidJson extends BasePingTests {
-    private TestDataDto testData;
+public class TC003_VerifyApplicationGeneratesReportWithGivenNameTest extends BasePingTests {
+    private TestDataDto testDataDto;
 
     @BeforeClass
     public void beforeClass() {
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
+        testDataDto = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
     }
-    @Test
-    @Description("Report file reflects JSON structure.")
-    public void test() {
-        BSL.pingerExecutableHelper.executePinger(testData).execute();
-        File report = FileUtils.getFile(testData.getReport().getPath());
 
-        Assert.assertTrue(JsonUtils.isValidJson(report));
-        cleanUpGeneratedFiles(testData);
+    @Test
+    @Description("Application successfully creates file with given name.")
+    public void test() {
+        BSL.pingerExecutableHelper.executePinger(testDataDto).execute();
+        File report = FileUtils.getFile(testDataDto.getReport().getPath());
+
+        Assert.assertTrue(report.getName().startsWith(testDataDto.getReport().getName()));
+        cleanUpGeneratedFiles(testDataDto);
     }
 }
+

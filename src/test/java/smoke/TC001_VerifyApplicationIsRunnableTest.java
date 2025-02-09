@@ -6,7 +6,7 @@ import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TC001_VerifyApplicationIsRunnable {
+public class TC001_VerifyApplicationIsRunnableTest {
 
     @Test
     @Description("Verify application usage message when no arguments are provided")

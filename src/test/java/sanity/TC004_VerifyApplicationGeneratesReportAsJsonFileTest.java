@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 
-public class TC004_VerifyApplicationGeneratesReportAsJsonFile extends BasePingTests {
+public class TC004_VerifyApplicationGeneratesReportAsJsonFileTest extends BasePingTests {
     private TestDataDto testDataDto;
 
     @BeforeClass

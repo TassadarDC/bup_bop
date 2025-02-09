@@ -11,7 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TC002_VerifyApplicationReadsValidConfigFile extends BasePingTests {
+public class TC002_VerifyApplicationReadsValidConfigFileTest extends BasePingTests {
     private String configName;
 
     @BeforeClass

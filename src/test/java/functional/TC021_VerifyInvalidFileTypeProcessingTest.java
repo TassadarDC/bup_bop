@@ -6,7 +6,7 @@ import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TC021_VerifyInvalidFileTypeProcessing extends BasePingTests {
+public class TC021_VerifyInvalidFileTypeProcessingTest extends BasePingTests {
 
     @Test
     @Description("Application prints an error and exits gracefully in case of non JSON file.")

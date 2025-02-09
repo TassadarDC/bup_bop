@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.pinger.automation.utils.JsonSchemaValidator.validateJson;
 
-public class TC006_VerifyReportStructure extends BasePingTests {
+public class TC006_VerifyReportStructureTest extends BasePingTests {
     private TestDataDto testData;
 
     @BeforeClass
