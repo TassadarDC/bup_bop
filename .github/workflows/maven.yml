@@ -71,7 +71,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: allure-report
-        path: target/site/allure-maven-plugin/index.html
+        path: target/site/allure-maven-plugin
 
     
     - name: Setup Git Identity
