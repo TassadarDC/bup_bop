@@ -27,7 +27,10 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-        
+           
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
     - name: Install Go & Build `pinger`
       run: |
           sudo apt-get update && sudo apt-get install -y golang
@@ -36,9 +39,6 @@ jobs:
           chmod +x pinger
           mv pinger ../src/main/resources/testData
     
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-      
     - name: Build with Maven
       run: mvn -B clean test
       
