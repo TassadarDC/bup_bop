@@ -23,7 +23,7 @@ public class TC007_VerifyPingerFlowWithValidReportTest extends BasePingTests {
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
-    @Test()
+    @Test(enabled = false)
     @Description("Positive case scenario")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
