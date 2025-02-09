@@ -52,7 +52,7 @@ jobs:
       run: file src/main/resources/pinger
       
     - name: Run Tests
-      run: mvn test -X
+      run: mvn test
       continue-on-error: true
       
     - name: Check Maven Test Execution
