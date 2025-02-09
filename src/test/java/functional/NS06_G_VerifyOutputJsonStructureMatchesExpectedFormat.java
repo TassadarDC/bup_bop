@@ -1,9 +1,11 @@
 package functional;
 
+import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 
 public class NS06_G_VerifyOutputJsonStructureMatchesExpectedFormat {
     @Test
+    @Description("NS06_G_VerifyOutputJsonStructureMatchesExpectedFormat")
     public void verifyOutputJsonStructureMatchesExpectedFormat() {
 
 //        String fileName = this.getClass().getSimpleName() + "TestData.json";

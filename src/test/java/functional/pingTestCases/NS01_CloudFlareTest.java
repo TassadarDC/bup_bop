@@ -6,6 +6,7 @@ import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
 import com.pinger.automation.core.model.enums.Endpoints;
+import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,7 @@ public class NS01_CloudFlareTest extends BasePingTests {
     }
 
     @Test
+    @Description("NS01_CloudFlareTest")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);
