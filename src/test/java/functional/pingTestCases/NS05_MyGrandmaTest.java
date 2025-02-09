@@ -12,7 +12,7 @@ public class NS05_MyGrandmaTest extends BasePingTests {
 
     @BeforeClass
     public void setupTestConfig() {
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoints.MY_GRANDMA);
+        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoints.UNREACHABLE);
     }
 
     @Test
