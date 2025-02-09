@@ -5,7 +5,7 @@ import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.FileUtils;
-import functional.pingTestCases.BasePingTests;
+import functional.BasePingTest;
 import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 
-public class TC004_VerifyApplicationGeneratesReportAsJsonFile extends BasePingTests {
+public class TC004_VerifyApplicationGeneratesReportAsJsonFile extends BasePingTest {
     private TestDataDto testDataDto;
 
     @BeforeClass

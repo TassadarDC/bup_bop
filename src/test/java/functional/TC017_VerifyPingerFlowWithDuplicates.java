@@ -1,4 +1,4 @@
-package functional.pingTestCases;
+package functional;
 
 import com.pinger.automation.core.factories.PingerTestDataFactory;
 import com.pinger.automation.core.helpers.BSL;
@@ -12,19 +12,19 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class TC007_VerifyPingerFlowWithValidReport extends BasePingTests {
+public class TC017_VerifyPingerFlowWithDuplicates extends BasePingTest {
     private TestDataDto testData;
 
     @BeforeClass
     public void setupTestConfig() {
         InputDataDto inputDto = new InputDataDto();
-        inputDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS),
-                new EndpointDto(Endpoint.CLOUDFLARE_DNS)));
+        inputDto.setMaxPings(3).setMinSuccessfulPings(1).setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS),
+                new EndpointDto(Endpoint.GOOGLE_DNS)));
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), inputDto);
     }
 
     @Test
-    @Description("Positive case scenario")
+    @Description("Should not execute pings for duplicated endpoints")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);

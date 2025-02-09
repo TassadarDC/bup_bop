@@ -2,6 +2,8 @@ package smoke;
 
 import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
+import com.pinger.automation.utils.AppRunner;
+import com.pinger.automation.utils.PingerConfig;
 import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,12 +13,9 @@ public class TC001_VerifyApplicationIsRunnable {
     @Test
     @Description("Verify application usage message when no arguments are provided")
     public void test() {
-        TestDataDto testDataDto = new TestDataDto();
-        testDataDto.getInputDataFile().setName("");
-        testDataDto.getOutputDataFile().setName("");
-        String output = BSL.pingerExecutableHelper.executePinger(testDataDto).execute();
+        String output = AppRunner.runApplication(PingerConfig.getPingerExecutable(), PingerConfig.getPingerWorkingDirectory());
 
         Assert.assertNotNull(output, "Application provides output.");
-        Assert.assertTrue(output.contains("Failed to read config file: open : no such file or directory"), "Application is executable.");
+        Assert.assertTrue(output.contains("Usage: [path_to_json_file] [path_to_result_file]"), "Application is executable.");
     }
 }

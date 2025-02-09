@@ -1,4 +1,4 @@
-package functional.pingTestCases;
+package functional;
 
 import com.pinger.automation.core.factories.PingerTestDataFactory;
 import com.pinger.automation.core.helpers.BSL;
@@ -10,11 +10,10 @@ import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TC016_VerifyElevenEndpointsProcessing extends BasePingTests {
+public class TC016_VerifyElevenEndpointsProcessing extends BasePingTest {
     private TestDataDto testData;
 
     @BeforeClass
