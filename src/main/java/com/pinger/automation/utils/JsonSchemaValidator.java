@@ -5,13 +5,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.loader.SchemaLoader;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
 @Slf4j
-public class JsonStructureValidator {
+public class JsonSchemaValidator {
 
     public static boolean validateJsonStructure(String jsonFilePath, String schemaFilePath) {
         try {
@@ -68,11 +73,19 @@ public class JsonStructureValidator {
         return true;
     }
 
-    public static void main(String[] args) {
-        String jsonFilePath = "src/main/resources/actual.json";
-        String schemaFilePath = "src/main/resources/schemas/reportSchema";
+    public static boolean validateJson(String jsonFilePath, String schemaFilePath) {
+        try (FileInputStream jsonStream = new FileInputStream(jsonFilePath);
+             FileInputStream schemaStream = new FileInputStream(schemaFilePath)) {
 
-        boolean isValid = validateJsonStructure(jsonFilePath, schemaFilePath);
-        System.out.println(isValid ? "✅ JSON structure is valid!" : "JSON structure is invalid.");
+            JSONObject rawSchema = new JSONObject(new JSONTokener(schemaStream));
+            Schema schema = SchemaLoader.load(rawSchema);
+            schema.validate(new JSONObject(new JSONTokener(jsonStream)));
+
+            System.out.println("JSON is valid against the schema!");
+            return true;
+        } catch (Exception e) {
+            System.err.println("JSON validation failed: " + e.getMessage());
+            return false;
+        }
     }
 }

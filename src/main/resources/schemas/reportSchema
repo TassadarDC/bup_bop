@@ -1,17 +1,75 @@
 {
-  "start_time": "string",
-  "end_time": "string",
-  "min_successful_pings": "number",
-  "max_pings": "number",
-  "entries": [
-    {
-      "endpoint": {
-        "addr": "string",
-        "description": "string",
-        "ignore": "boolean"
-      },
-      "total_pings": "number",
-      "successful_pings": "number"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp of the job start in RFC-3339 format."
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp of the job end in RFC-3339 format."
+    },
+    "min_successful_pings": {
+      "type": "number",
+      "description": "The min_successful_pings value from the configuration."
+    },
+    "max_pings": {
+      "type": "number",
+      "description": "The max_pings value from the configuration."
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "List of all the endpoints with their corresponding results.",
+      "items": {
+        "$ref": "#/definitions/endpointReport"
+      }
     }
-  ]
+  },
+  "required": [
+    "start_time",
+    "end_time",
+    "min_successful_pings",
+    "max_pings",
+    "endpoints"
+  ],
+  "definitions": {
+    "endpoint": {
+      "type": "object",
+      "properties": {
+        "addr": {
+          "type": "string",
+          "description": "An IPv4 address in dotted decimal notation."
+        },
+        "description": {
+          "type": "string",
+          "description": "Information about the endpoint to be displayed in the report."
+        },
+        "ignore": {
+          "type": "boolean",
+          "description": "If true, the endpoint will not be checked and not appear in the report."
+        }
+      },
+      "required": ["addr", "description", "ignore"]
+    },
+    "endpointReport": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "#/definitions/endpoint"
+        },
+        "total_pings": {
+          "type": "number",
+          "description": "Amount of total tried pings."
+        },
+        "successful_pings": {
+          "type": "number",
+          "description": "Amount of pings which were successful."
+        }
+      },
+      "required": ["endpoint", "total_pings", "successful_pings"]
+    }
+  }
 }

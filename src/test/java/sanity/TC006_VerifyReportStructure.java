@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.pinger.automation.utils.JsonStructureValidator.validateJsonStructure;
+import static com.pinger.automation.utils.JsonSchemaValidator.validateJson;
 
 public class TC006_VerifyReportStructure extends BasePingTest {
     private TestDataDto testData;
@@ -34,7 +34,7 @@ public class TC006_VerifyReportStructure extends BasePingTest {
     @Description("Report JSON file matches expected schema.")
     public void test() {
         String jsonFilePath = testData.getReport().getPath();
-        Assert.assertTrue(validateJsonStructure(jsonFilePath, PingerAppConfig.getPingerJsonSchema()));
+        Assert.assertTrue(validateJson(jsonFilePath, PingerAppConfig.getPingerJsonSchema()));
         cleanUpGeneratedFiles(testData);
     }
 }
