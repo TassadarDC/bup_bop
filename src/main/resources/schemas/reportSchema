@@ -1,0 +1,17 @@
+{
+  "start_time": "string",
+  "end_time": "string",
+  "min_successful_pings": "number",
+  "max_pings": "number",
+  "entries": [
+    {
+      "endpoint": {
+        "addr": "string",
+        "description": "string",
+        "ignore": "boolean"
+      },
+      "total_pings": "number",
+      "successful_pings": "number"
+    }
+  ]
+}

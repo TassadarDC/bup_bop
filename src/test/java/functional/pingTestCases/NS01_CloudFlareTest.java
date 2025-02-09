@@ -19,9 +19,7 @@ public class NS01_CloudFlareTest extends BasePingTests {
     public void setupTestConfig() {
         InputDataDto inputDto = new InputDataDto();
         inputDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoints.GOOGLE_DNS),
-                new EndpointDto(Endpoints.CLOUDFLARE_IGNORED),
-                new EndpointDto(Endpoints.MY_SO_LAN_IGNORED),
-                new EndpointDto(Endpoints.UNREACHABLE)));
+                new EndpointDto(Endpoints.CLOUDFLARE)));
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), inputDto);
     }
 
