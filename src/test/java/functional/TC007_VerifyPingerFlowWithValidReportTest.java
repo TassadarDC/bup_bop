@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class TC007_VerifyPingerFlowWithValidReport extends BasePingTest {
+public class TC007_VerifyPingerFlowWithValidReportTest extends BasePingTest {
     private TestDataDto testData;
 
     @BeforeClass
