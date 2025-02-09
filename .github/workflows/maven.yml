@@ -66,9 +66,6 @@ jobs:
 
     - name: Check Allure Results Directory
       run: ls -la target/allure-results || echo "Directory not found"
-
-    - name: Ensure Allure Results Directory
-      run: mkdir -p target/allure-results
       
     - name: Upload Allure Results
       uses: actions/upload-artifact@v4
