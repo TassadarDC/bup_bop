@@ -27,9 +27,9 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-           
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    
+    - name: Checkout Pinger Repository
+      run: git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/TassadarDC/Norbert.git pinger-src
 
     - name: Install Go & Build `pinger`
       run: |
@@ -38,7 +38,10 @@ jobs:
           GOOS=linux GOARCH=amd64 go build -o pinger main.go
           chmod +x pinger
           mv pinger ../src/main/resources/testData
-    
+           
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+      
     - name: Build with Maven
       run: mvn -B clean test
       
