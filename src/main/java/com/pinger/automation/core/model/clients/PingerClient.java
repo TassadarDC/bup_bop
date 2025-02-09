@@ -10,6 +10,7 @@ import com.pinger.automation.utils.FileUtils;
 import com.pinger.automation.utils.JsonUtils;
 import com.pinger.automation.utils.SoftVerifier;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.Assert;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
@@ -43,7 +44,7 @@ public class PingerClient extends ExecutableClient<ReportDto> {
 
         //Check if report has data.
         if (actual.getEntries() == null || actual.getEntries().isEmpty()) {
-            throw new IllegalStateException("No entries found in result.json");
+            Assert.fail("No entries found in result.json");
         }
         log.info("Result file: {}", JsonUtils.toJsonString(actual));
         SoftVerifier verifier = new SoftVerifier();
