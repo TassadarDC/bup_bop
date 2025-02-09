@@ -30,7 +30,7 @@ jobs:
         cache: maven
 
     - name: Checkout Pinger Repository
-      run: git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/vlyeh/gop.git pinger-src
+      run: git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/TassadarDC/Norbert.git pinger-src
 
     - name: Install Allure
       run: |
