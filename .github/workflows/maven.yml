@@ -43,14 +43,9 @@ jobs:
         cd pinger-src
         GOOS=linux GOARCH=amd64 go build -o pinger main.go
         chmod +x pinger
-        mv pinger ../src/main/resources/
-
-    - name: Verify `pinger` Exists
-      run: ls -lah src/main/resources/
+        mv pinger ../src/main/resources/testData
+        ls -lah src/main/resources/testData
      
-    - name: Check `pinger` Format
-      run: file src/main/resources/pinger
-      
     - name: Run Tests
       run: mvn test
       continue-on-error: true
@@ -72,7 +67,6 @@ jobs:
       with:
         name: allure-report
         path: target/site/allure-maven-plugin
-
     
     - name: Setup Git Identity
       run: |
