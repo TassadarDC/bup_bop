@@ -28,7 +28,7 @@ public class TC016_VerifyElevenEndpointsProcessingTest extends BasePingTests {
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
-    @Test(enabled = false)
+    @Test()
     @Description("Positive case scenario")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();

@@ -21,7 +21,7 @@ public class TC005_VerifyReportIsValidJsonTest extends BasePingTests {
     public void beforeClass() {
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
     }
-    @Test(enabled = false)
+    @Test()
     @Description("Report file reflects JSON structure.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).execute();

@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class TC020_VerifyBrokenJsonProcessingTest extends BasePingTests {
 
-    @Test(enabled = false)
+    @Test()
     @Description("Application prints an error and exits gracefully in case of broken JSON file structure.")
     public void test() {
         String output = AppRunner.runApplication(PingerAppConfig.getPingerExecutable(), PingerAppConfig.getPingerWorkingDirectory(), "brokenConfig.json");

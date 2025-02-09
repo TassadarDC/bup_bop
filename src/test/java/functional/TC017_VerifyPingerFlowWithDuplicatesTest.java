@@ -23,7 +23,7 @@ public class TC017_VerifyPingerFlowWithDuplicatesTest extends BasePingTests {
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
-    @Test(enabled = false)
+    @Test()
     @Description("Should not execute pings for duplicated endpoints")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();

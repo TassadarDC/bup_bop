@@ -21,7 +21,7 @@ public class TC004_VerifyApplicationGeneratesReportAsJsonFileTest extends BasePi
         testDataDto = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
     }
 
-    @Test(enabled = false)
+    @Test()
     @Description("Application successfully creates *.json file.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testDataDto).execute();

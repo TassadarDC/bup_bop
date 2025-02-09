@@ -30,7 +30,7 @@ public class TC006_VerifyReportStructureTest extends BasePingTests {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
     }
 
-    @Test(enabled = false)
+    @Test()
     @Description("Report JSON file matches expected schema.")
     public void test() {
         String jsonFilePath = testData.getReport().getPath();
