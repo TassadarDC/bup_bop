@@ -72,3 +72,9 @@ jobs:
       with:
         name: allure-report
         path: target/site/allure-maven-plugin/index.html
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }} 
+        publish_dir: ./allure-report
