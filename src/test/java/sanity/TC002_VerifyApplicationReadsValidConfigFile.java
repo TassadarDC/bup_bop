@@ -5,13 +5,13 @@ import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.AppRunner;
 import com.pinger.automation.utils.PingerAppConfig;
-import functional.BasePingTest;
+import functional.BasePingTests;
 import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TC002_VerifyApplicationReadsValidConfigFile extends BasePingTest {
+public class TC002_VerifyApplicationReadsValidConfigFile extends BasePingTests {
     private String configName;
 
     @BeforeClass

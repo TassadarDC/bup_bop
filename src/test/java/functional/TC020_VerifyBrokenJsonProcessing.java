@@ -6,7 +6,7 @@ import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TC020_VerifyBrokenJsonProcessing extends BasePingTest {
+public class TC020_VerifyBrokenJsonProcessing extends BasePingTests {
 
     @Test
     @Description("Application prints an error and exits gracefully in case of broken JSON file structure.")

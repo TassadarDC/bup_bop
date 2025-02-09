@@ -7,7 +7,7 @@ import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.PingerAppConfig;
-import functional.BasePingTest;
+import functional.BasePingTests;
 import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.pinger.automation.utils.JsonSchemaValidator.validateJson;
 
-public class TC006_VerifyReportStructure extends BasePingTest {
+public class TC006_VerifyReportStructure extends BasePingTests {
     private TestDataDto testData;
 
     @BeforeClass
