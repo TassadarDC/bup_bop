@@ -1,4 +1,5 @@
-package com.pinger.automation.core.model.entites.dto.output;
+package com.pinger.automation.core.model.entites.dto.
+        report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;

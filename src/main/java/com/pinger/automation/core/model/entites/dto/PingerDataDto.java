@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class PingerDataFileDto {
+public class PingerDataDto {
     private String name;
     private String directory;
     private String path;

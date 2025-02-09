@@ -1,43 +1,43 @@
 package com.pinger.automation.core.factories;
 
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
-import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
-import com.pinger.automation.core.model.entites.dto.input.PingerInputDataFile;
-import com.pinger.automation.core.model.entites.dto.output.PingerOutputDataFile;
+import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
+import com.pinger.automation.core.model.entites.dto.config.PingerConfigFile;
+import com.pinger.automation.core.model.entites.dto.report.PingerReportFile;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.FileUtils;
-import com.pinger.automation.utils.PingerConfig;
+import com.pinger.automation.utils.PingerAppConfig;
 
 public class PingerTestDataFactory {
-    private static final PingerInputDataDtoFactory PINGER_INPUT_DATA_DTO_FACTORY = new PingerInputDataDtoFactory();
+    private static final PingerConfigDataDtoFactory PINGER_CONFIG_DATA_DTO_FACTORY = new PingerConfigDataDtoFactory();
     public static TestDataDto createTestDataDto(Class clazz, Endpoint endpoint) {
-        //Generate dto for test input data
-        InputDataDto inputDto = PINGER_INPUT_DATA_DTO_FACTORY.getPingDataDto(endpoint);
-        return createTestDataDto(clazz, inputDto);
+        //Generate dto for test config data
+        ConfigDto configDto = PINGER_CONFIG_DATA_DTO_FACTORY.getPingDataDto(endpoint);
+        return createTestDataDto(clazz, configDto);
     }
 
-    public static TestDataDto createTestDataDto(Class clazz, InputDataDto inputDto) {
-        String directory = PingerConfig.getPingerWorkingDirectory();
-        String inputFileName = clazz.getSimpleName() + "InputData.json";
-        String outputFileName = clazz.getSimpleName() + "OutputData.json";
+    public static TestDataDto createTestDataDto(Class clazz, ConfigDto configDto) {
+        String directory = PingerAppConfig.getPingerWorkingDirectory();
+        String configName = clazz.getSimpleName() + "Config.json";
+        String reportName = clazz.getSimpleName() + "Report.json";
 
         //Create json file at provided directory.
-        FileUtils.createJsonFileFromDto(inputDto, directory, inputFileName);
+        FileUtils.createJsonFileFromDto(configDto, directory, configName);
 
         //Fill the rest of DTO wo work with
-        PingerInputDataFile inputDataFile = new PingerInputDataFile();
-        inputDataFile.setDto(inputDto);
-        inputDataFile.setDirectory(directory);
-        inputDataFile.setName(inputFileName);
+        PingerConfigFile pingerConfigFile = new PingerConfigFile();
+        pingerConfigFile.setDto(configDto);
+        pingerConfigFile.setDirectory(directory);
+        pingerConfigFile.setName(configName);
 
-        PingerOutputDataFile outputDataFile = new PingerOutputDataFile();
-        outputDataFile.setDto(null);
-        outputDataFile.setDirectory(directory);
-        outputDataFile.setName(outputFileName);
+        PingerReportFile reportFile = new PingerReportFile();
+        reportFile.setDto(null);
+        reportFile.setDirectory(directory);
+        reportFile.setName(reportName);
 
         TestDataDto dataFile = new TestDataDto();
-        dataFile.setInputDataFile(inputDataFile);
-        dataFile.setOutputDataFile(outputDataFile);
+        dataFile.setConfig(pingerConfigFile);
+        dataFile.setReport(reportFile);
         return dataFile;
     }
 }

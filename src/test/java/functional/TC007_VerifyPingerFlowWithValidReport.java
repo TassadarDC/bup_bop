@@ -4,7 +4,7 @@ import com.pinger.automation.core.factories.PingerTestDataFactory;
 import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
-import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
+import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
@@ -17,10 +17,10 @@ public class TC007_VerifyPingerFlowWithValidReport extends BasePingTest {
 
     @BeforeClass
     public void setupTestConfig() {
-        InputDataDto inputDto = new InputDataDto();
-        inputDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS),
+        ConfigDto configDto = new ConfigDto();
+        configDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS),
                 new EndpointDto(Endpoint.CLOUDFLARE_DNS)));
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), inputDto);
+        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
     @Test

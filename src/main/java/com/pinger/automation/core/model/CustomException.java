@@ -2,8 +2,8 @@ package com.pinger.automation.core.model;
 
 import java.io.IOException;
 
-public class CustomException extends RuntimeException{
-    public CustomException(String message, Throwable reason){
+public class CustomException extends RuntimeException {
+    public CustomException(String message, Throwable reason) {
         super(message, reason);
     }
 

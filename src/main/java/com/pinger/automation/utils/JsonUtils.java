@@ -1,6 +1,5 @@
 package com.pinger.automation.utils;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,13 +8,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.pinger.automation.core.model.CustomException;
-import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
+import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Objects;
 
 @Slf4j
@@ -55,7 +55,7 @@ public final class JsonUtils {
         return false;
     }
 
-    public static File createFileFromDto(InputDataDto dto, String filePath) {
+    public static File createFileFromDto(ConfigDto dto, String filePath) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             File file = new File(filePath);
@@ -65,8 +65,7 @@ public final class JsonUtils {
             return file;
         } catch (IOException e) {
             log.error("Failed to save DTO: {}", e.getMessage());
-            //todo check exception
-            throw new CustomException("Failed to save DTO: {}", e);
+            throw new UncheckedIOException("Failed to save DTO: {}", e);
         }
     }
 

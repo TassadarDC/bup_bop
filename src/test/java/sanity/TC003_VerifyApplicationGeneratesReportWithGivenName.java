@@ -25,9 +25,9 @@ public class TC003_VerifyApplicationGeneratesReportWithGivenName extends BasePin
     @Description("Application successfully creates file with given name.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testDataDto).execute();
-        File report = FileUtils.getFile(testDataDto.getOutputDataFile().getPath());
+        File report = FileUtils.getFile(testDataDto.getReport().getPath());
 
-        Assert.assertTrue(report.getName().startsWith(testDataDto.getOutputDataFile().getName()));
+        Assert.assertTrue(report.getName().startsWith(testDataDto.getReport().getName()));
         cleanUpGeneratedFiles(testDataDto);
     }
 }

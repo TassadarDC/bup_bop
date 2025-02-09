@@ -4,7 +4,7 @@ import com.pinger.automation.core.factories.PingerTestDataFactory;
 import com.pinger.automation.core.helpers.BSL;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
-import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
+import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
@@ -18,14 +18,14 @@ public class TC016_VerifyElevenEndpointsProcessing extends BasePingTest {
 
     @BeforeClass
     public void setupTestConfig() {
-        InputDataDto inputDto = new InputDataDto();
+        ConfigDto configDto = new ConfigDto();
 
         List<EndpointDto> list = Arrays.stream(Endpoint.values())
                 .map(EndpointDto::new)
                 .toList();
 
-        inputDto.setMaxPings(3).setMinSuccessfulPings(2).setEndpoints(list);
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), inputDto);
+        configDto.setMaxPings(3).setMinSuccessfulPings(2).setEndpoints(list);
+        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
     @Test

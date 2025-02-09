@@ -25,7 +25,7 @@ public class TC004_VerifyApplicationGeneratesReportAsJsonFile extends BasePingTe
     @Description("Application successfully creates *.json file.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testDataDto).execute();
-        File report = FileUtils.getFile(testDataDto.getOutputDataFile().getPath());
+        File report = FileUtils.getFile(testDataDto.getReport().getPath());
 
         Assert.assertTrue(FileUtils.hasJsonExtension(report));
         cleanUpGeneratedFiles(testDataDto);

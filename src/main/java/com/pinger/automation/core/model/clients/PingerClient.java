@@ -3,9 +3,9 @@ package com.pinger.automation.core.model.clients;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
-import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
-import com.pinger.automation.core.model.entites.dto.output.EntryDto;
-import com.pinger.automation.core.model.entites.dto.output.OutputDataDto;
+import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
+import com.pinger.automation.core.model.entites.dto.report.EntryDto;
+import com.pinger.automation.core.model.entites.dto.report.ReportDto;
 import com.pinger.automation.utils.FileUtils;
 import com.pinger.automation.utils.JsonUtils;
 import com.pinger.automation.utils.SoftVerifier;
@@ -14,37 +14,35 @@ import org.testng.Assert;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.HashSet;
 
-import static com.pinger.automation.utils.PingerConfig.getPingerExecutable;
-import static com.pinger.automation.utils.PingerConfig.getPingerWorkingDirectory;
+import static com.pinger.automation.utils.PingerAppConfig.getPingerExecutable;
+import static com.pinger.automation.utils.PingerAppConfig.getPingerWorkingDirectory;
 
 @Slf4j
-public class PingerClient extends ExecutableClient<OutputDataDto> {
+public class PingerClient extends ExecutableClient<ReportDto> {
     private static final String EXECUTABLE = getPingerExecutable();
     private static final String WORKING_DIRECTORY = getPingerWorkingDirectory();
     private final TestDataDto TEST_DATA_DTO;
 
     public PingerClient(TestDataDto dto) {
-        super(EXECUTABLE, WORKING_DIRECTORY, dto.getInputDataFile().getName(), dto.getOutputDataFile().getName());
+        super(EXECUTABLE, WORKING_DIRECTORY, dto.getConfig().getName(), dto.getReport().getName());
         TEST_DATA_DTO = dto;
     }
 
     @Override
-    public OutputDataDto processValidScenario() {
+    public ReportDto processValidScenario() {
         OffsetDateTime expectedStartDateTime = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         execute();
         OffsetDateTime expectedEndDateTime = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         //Get an object with expected data.
-        InputDataDto expected = TEST_DATA_DTO.getInputDataFile().getDto();
+        ConfigDto expected = TEST_DATA_DTO.getConfig().getDto();
 
         //Get an object with actual data after execution
-        OutputDataDto actual = FileUtils.parseFileToObject(WORKING_DIRECTORY + TEST_DATA_DTO.getOutputDataFile().getName(), new TypeReference<>() {
+        ReportDto actual = FileUtils.parseFileToObject(WORKING_DIRECTORY + TEST_DATA_DTO.getReport().getName(), new TypeReference<>() {
         });
 
-        //Check if output file has data in it.
+        //Check if report has data.
         if (actual.getEntries() == null || actual.getEntries().isEmpty()) {
             Assert.fail("No entries found in result.json");
         }
@@ -52,12 +50,12 @@ public class PingerClient extends ExecutableClient<OutputDataDto> {
         SoftVerifier verifier = new SoftVerifier();
 
         //Validate timestamps (doesn't work properly, fails from time to time due to one second edge)
-        OffsetDateTime outputStartDateTime = OffsetDateTime.parse(actual.getStartTime());
-        OffsetDateTime outputEndDateTime = OffsetDateTime.parse(actual.getEndTime());
-        verifier.assertNotEquals(outputStartDateTime, outputEndDateTime, "Verify that start and end time differs.");
-        verifier.assertTrue(outputStartDateTime.isBefore(outputEndDateTime), "Verify that start date is before end date.");
-        verifier.assertEquals(expectedStartDateTime.truncatedTo(ChronoUnit.SECONDS), outputStartDateTime.truncatedTo(ChronoUnit.SECONDS), "Verity start date time.");
-        verifier.assertEquals(expectedEndDateTime.truncatedTo(ChronoUnit.SECONDS), outputEndDateTime.truncatedTo(ChronoUnit.SECONDS), "Verity end date time.");
+        OffsetDateTime reportStartDateTime = OffsetDateTime.parse(actual.getStartTime());
+        OffsetDateTime reportEndDateTime = OffsetDateTime.parse(actual.getEndTime());
+        verifier.assertNotEquals(reportStartDateTime, reportEndDateTime, "Verify that start and end time differs.");
+        verifier.assertTrue(reportStartDateTime.isBefore(reportEndDateTime), "Verify that start date is before end date.");
+        verifier.assertEquals(expectedStartDateTime.truncatedTo(ChronoUnit.SECONDS), reportStartDateTime.truncatedTo(ChronoUnit.SECONDS), "Verity start date time.");
+        verifier.assertEquals(expectedEndDateTime.truncatedTo(ChronoUnit.SECONDS), reportEndDateTime.truncatedTo(ChronoUnit.SECONDS), "Verity end date time.");
 
         //Validate min/max pings
         verifier.assertEquals(actual.getMinSuccessfulPings(), expected.getMinSuccessfulPings(), "Verity min successful pings.");
@@ -75,13 +73,13 @@ public class PingerClient extends ExecutableClient<OutputDataDto> {
         return actual;
     }
 
-    private void validateEndpointEntries(OutputDataDto actual, InputDataDto expected, SoftVerifier verifier) {
+    private void validateEndpointEntries(ReportDto actual, ConfigDto expected, SoftVerifier verifier) {
         for (EntryDto actualEntry : actual.getEntries()) {
             //move this to validate list of expected vs list of actual
             EndpointDto expectedEndpoint = expected.getEndpoints().stream().filter(e -> e.getDescription().equals(actualEntry.getEndpoint().getDescription())).findFirst().orElse(null);
 
             if (expectedEndpoint == null) {
-                log.warn("There is no expected {} endpoint in output file.", actualEntry.getEndpoint().getDescription());
+                log.warn("There is no expected {} endpoint in report file.", actualEntry.getEndpoint().getDescription());
                 break;
             }
             log.warn("Verifying entry: {}.", actualEntry);

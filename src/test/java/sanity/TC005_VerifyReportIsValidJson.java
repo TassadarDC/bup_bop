@@ -25,7 +25,7 @@ public class TC005_VerifyReportIsValidJson extends BasePingTest {
     @Description("Report file reflects JSON structure.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).execute();
-        File report = FileUtils.getFile(testData.getOutputDataFile().getPath());
+        File report = FileUtils.getFile(testData.getReport().getPath());
 
         Assert.assertTrue(JsonUtils.isValidJson(report));
         cleanUpGeneratedFiles(testData);

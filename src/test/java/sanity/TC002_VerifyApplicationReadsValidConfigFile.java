@@ -4,7 +4,7 @@ import com.pinger.automation.core.factories.PingerTestDataFactory;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.AppRunner;
-import com.pinger.automation.utils.PingerConfig;
+import com.pinger.automation.utils.PingerAppConfig;
 import functional.BasePingTest;
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -12,20 +12,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class TC002_VerifyApplicationReadsValidConfigFile extends BasePingTest {
-    private String inputFileName;
+    private String configName;
 
     @BeforeClass
     public void beforeClass() {
         TestDataDto testDataDto = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
-        inputFileName = testDataDto.getInputDataFile().getName();
+        configName = testDataDto.getConfig().getName();
     }
 
 
     @Test
     @Description("Application successfully loads configuration JSON and exits without errors.")
     public void verifyApplicationReadsValidConfigFile() {
-        String output = AppRunner.runApplication(PingerConfig.getPingerExecutable(), PingerConfig.getPingerWorkingDirectory(), inputFileName);
-        Assert.assertTrue(output.contains(String.format("Loading configuration from %s..", inputFileName)), "Application successfully runs with only input file provided.");
-        cleanUpGeneratedFile(PingerConfig.getPingerWorkingDirectory() + inputFileName);
+        String output = AppRunner.runApplication(PingerAppConfig.getPingerExecutable(), PingerAppConfig.getPingerWorkingDirectory(), configName);
+        Assert.assertTrue(output.contains(String.format("Loading configuration from %s..", configName)), "Application successfully runs with only input file provided.");
+        cleanUpGeneratedFile(PingerAppConfig.getPingerWorkingDirectory() + configName);
     }
 }
