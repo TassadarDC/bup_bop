@@ -2,17 +2,26 @@ package functional.pingTestCases;
 
 import com.pinger.automation.core.factories.PingerTestDataFactory;
 import com.pinger.automation.core.helpers.BSL;
+import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
+import com.pinger.automation.core.model.entites.dto.input.InputDataDto;
 import com.pinger.automation.core.model.enums.Endpoints;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class NS01_CloudFlareTest extends BasePingTests {
     private TestDataDto testData;
 
     @BeforeClass
     public void setupTestConfig() {
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoints.CLOUDFLARE);
+        InputDataDto inputDto = new InputDataDto();
+        inputDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoints.GOOGLE_DNS),
+                new EndpointDto(Endpoints.CLOUDFLARE_IGNORED),
+                new EndpointDto(Endpoints.MY_SO_LAN_IGNORED),
+                new EndpointDto(Endpoints.UNREACHABLE)));
+        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), inputDto);
     }
 
     @Test
