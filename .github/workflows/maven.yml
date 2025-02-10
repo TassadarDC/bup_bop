@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Allure Report CI
+name: Execute Pinger Test Cases.
 
 on:
   workflow_dispatch:
