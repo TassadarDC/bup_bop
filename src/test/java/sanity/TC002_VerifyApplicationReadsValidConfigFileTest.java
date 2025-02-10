@@ -1,6 +1,6 @@
 package sanity;
 
-import com.pinger.automation.core.factories.PingerTestDataFactory;
+import com.pinger.automation.core.factories.TestDataDtoFactory;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.AppRunner;
@@ -16,7 +16,7 @@ public class TC002_VerifyApplicationReadsValidConfigFileTest extends BasePingTes
 
     @BeforeClass
     public void beforeClass() {
-        TestDataDto testDataDto = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
+        TestDataDto testDataDto = TestDataDtoFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
         configName = testDataDto.getConfig().getName();
     }
 

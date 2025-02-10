@@ -5,10 +5,11 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class PingerDataDto {
+public class FileData<T> {
     private String name;
     private String directory;
     private String path;
+    private T dto;
 
     public String getPath() {
         return directory.concat(name);

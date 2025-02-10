@@ -1,4 +1,4 @@
-package com.pinger.automation.core.enums.annotations;
+package com.pinger.automation.core.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD})
 public @interface Defect {
-    String[] ids();  // Array of defect numbers
+    String[] ids();
 }

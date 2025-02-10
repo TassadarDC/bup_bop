@@ -6,16 +6,16 @@ import com.pinger.automation.core.model.enums.Endpoint;
 
 import java.util.Collections;
 
-public class PingerConfigDataDtoFactory {
-    public ConfigDto getPingDataDto(Endpoint endpoint) {
-        return getPingDataDto(endpoint, 1, 1);
+public final class ConfigDataDtoFactory {
+    public static ConfigDto getConfigDataDto(Endpoint endpoint) {
+        return getConfigDataDto(endpoint, 1, 1);
     }
 
-    public ConfigDto getPingDataDto(Endpoint endpoint, int minSuccess, int maxPings) {
-        return getPingDataDto(endpoint, minSuccess, maxPings, endpoint.isIgnore());
+    public static ConfigDto getConfigDataDto(Endpoint endpoint, int minSuccess, int maxPings) {
+        return getConfigDataDto(endpoint, minSuccess, maxPings, endpoint.isIgnore());
     }
 
-    public ConfigDto getPingDataDto(Endpoint endpoint, int minSuccess, int maxPings, boolean ignore) {
+    public static ConfigDto getConfigDataDto(Endpoint endpoint, int minSuccess, int maxPings, boolean ignore) {
         EndpointDto endpointDto = new EndpointDto(endpoint.getAddress(), endpoint.getDescription(), ignore);
         ConfigDto config = new ConfigDto();
 

@@ -1,4 +1,4 @@
-package com.pinger.automation.core.model.clients;
+package com.pinger.automation.core.clients;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
@@ -6,8 +6,8 @@ import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.entites.dto.report.EntryDto;
 import com.pinger.automation.core.model.entites.dto.report.ReportDto;
-import com.pinger.automation.utils.FileUtils;
 import com.pinger.automation.utils.JsonUtils;
+import com.pinger.automation.utils.PingerFileUtils;
 import com.pinger.automation.utils.SoftVerifier;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
@@ -40,7 +40,7 @@ public class PingerClient extends ExecutableClient<ReportDto> {
         ConfigDto expected = TEST_DATA_DTO.getConfig().getDto();
 
         //Get an object with actual data after execution
-        ReportDto actual = FileUtils.parseFileToObject(WORKING_DIRECTORY + TEST_DATA_DTO.getReport().getName(), new TypeReference<>() {
+        ReportDto actual = PingerFileUtils.parseFileToObject(WORKING_DIRECTORY + TEST_DATA_DTO.getReport().getName(), new TypeReference<>() {
         });
 
         //Check if report has data.
@@ -66,7 +66,8 @@ public class PingerClient extends ExecutableClient<ReportDto> {
         verifier.assertTrue(new HashSet<>(actual.getEntries()).size() == actual.getEntries().size(), "Verify that report does not contain duplicates.");
 
         //Validate total count of entries (report should contain only values for endpoint where ignore = false)
-        verifier.assertTrue(actual.getEntries().stream().map(EntryDto::getEndpoint).toList().containsAll(expected.getEndpoints().stream().filter(x -> !x.isIgnore()).toList()), "Verify that report contains all not ignored endpoints.");// bug
+        verifier.assertTrue(new HashSet<>(actual.getEntries().stream().map(EntryDto::getEndpoint).toList())
+                .containsAll(expected.getEndpoints().stream().filter(x -> !x.isIgnore()).toList()), "Verify that report contains all not ignored endpoints.");// bug
 
         //Navigate through the list of endpoints to validate all of them.
         validateEndpointEntries(actual, expected, verifier);

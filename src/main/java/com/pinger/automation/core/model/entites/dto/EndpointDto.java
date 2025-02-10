@@ -14,9 +14,7 @@ import lombok.experimental.Accessors;
 public class EndpointDto {
     @JsonProperty("addr")
     private String address;
-    @JsonProperty("description")
     private String description;
-    @JsonProperty("ignore")
     private boolean ignore;
 
     public EndpointDto(Endpoint endpoint) {

@@ -1,8 +1,8 @@
 package functional;
 
-import com.pinger.automation.core.enums.annotations.Defect;
-import com.pinger.automation.core.factories.PingerTestDataFactory;
-import com.pinger.automation.core.helpers.BSL;
+import com.pinger.automation.core.annotations.Defect;
+import com.pinger.automation.core.factories.TestDataDtoFactory;
+import com.pinger.automation.core.helpers.executable.PingerExecutableHelper;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
@@ -21,14 +21,14 @@ public class TC007_VerifyPingerFlowWithValidReportTest extends BasePingTests {
         ConfigDto configDto = new ConfigDto();
         configDto.setMaxPings(6).setMinSuccessfulPings(3).setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS),
                 new EndpointDto(Endpoint.CLOUDFLARE_DNS)));
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
+        testData = TestDataDtoFactory.createTestDataDto(this.getClass(), configDto);
     }
 
-    @Test()
+    @Test
     @Defect(ids = {"DF_001", "DF_002", "DF_003"})
     @Description("Base positive case scenario.")
     public void test() {
-        BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
+        PingerExecutableHelper.getPingerClient(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);
     }
 }

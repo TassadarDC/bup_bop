@@ -1,7 +1,7 @@
 package functional;
 
-import com.pinger.automation.core.factories.PingerTestDataFactory;
-import com.pinger.automation.core.helpers.BSL;
+import com.pinger.automation.core.factories.TestDataDtoFactory;
+import com.pinger.automation.core.helpers.executable.PingerExecutableHelper;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
@@ -28,13 +28,13 @@ public class TC015_VerifyElevenEndpointsProcessingTest extends BasePingTests {
         }
 
         configDto.setMaxPings(3).setMinSuccessfulPings(2).setEndpoints(list);
-        testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
+        testData = TestDataDtoFactory.createTestDataDto(this.getClass(), configDto);
     }
 
     @Test()
     @Description("Execution of config file that has more than 10 endpoints.")
     public void test() {
-        BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
+        PingerExecutableHelper.getPingerClient(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);
     }
 }

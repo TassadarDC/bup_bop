@@ -1,6 +1,6 @@
 package functional;
 
-import com.pinger.automation.core.enums.annotations.Defect;
+import com.pinger.automation.core.annotations.Defect;
 import com.pinger.automation.utils.AppRunner;
 import com.pinger.automation.utils.PingerAppConfig;
 import io.qameta.allure.Description;

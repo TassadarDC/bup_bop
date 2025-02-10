@@ -3,21 +3,22 @@ package com.pinger.automation.utils;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-public class PingerAppConfig {
-    private static final Config config = ConfigFactory.load();
+public final class PingerAppConfig {
+    private static final Config CONFIG = ConfigFactory.load();
+    public static final String PINGER_WORKING_DIRECTORY = "pinger.workingDirectory";
+    public static final String PINGER_EXECUTABLE = "pinger.executable";
+    public static final String PINGER_PINGER_SCHEMA = "pinger.pingerSchema";
 
     public static String getPingerWorkingDirectory() {
-        return getString("pinger.workingDirectory");
+        return getString(PINGER_WORKING_DIRECTORY);
     }
     public static String getPingerExecutable() {
-        return getString("pinger.executable");
+        return getString(PINGER_EXECUTABLE);
     }
     public static String getPingerJsonSchema() {
-        return getString("pinger.pingerSchema");
+        return getString(PINGER_PINGER_SCHEMA);
     }
-
     private static String getString(String key) {
-        return config.hasPath(key) ? config.getString(key) : "";
+        return CONFIG.hasPath(key) ? CONFIG.getString(key) : "";
     }
-
 }

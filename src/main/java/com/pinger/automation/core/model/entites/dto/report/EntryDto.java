@@ -4,10 +4,8 @@ package com.pinger.automation.core.model.entites.dto.
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 @Data
-@Accessors
 public class EntryDto {
     private EndpointDto endpoint;
     @JsonProperty("total_pings")

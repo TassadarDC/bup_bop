@@ -1,6 +1,6 @@
 package com.pinger.automation.allure;
 
-import com.pinger.automation.core.enums.annotations.Defect;
+import com.pinger.automation.core.annotations.Defect;
 import io.qameta.allure.Allure;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -9,6 +9,7 @@ import org.testng.ITestResult;
 import java.lang.reflect.Method;
 
 public class AllureListener implements IInvokedMethodListener {
+    public static final String DEFECT = "Defect";
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
@@ -20,14 +21,9 @@ public class AllureListener implements IInvokedMethodListener {
 
             for (String defectId : defectIds) {
                 if (!defectId.isEmpty()) {
-                    Allure.label("Defect", defectId);
+                    Allure.label(DEFECT, defectId);
                 }
             }
         }
-    }
-
-    @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        // No implementation needed after test execution
     }
 }

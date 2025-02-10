@@ -1,4 +1,4 @@
-package com.pinger.automation.core.model.clients;
+package com.pinger.automation.core.clients;
 
 import com.pinger.automation.utils.AppRunner;
 import io.qameta.allure.Allure;

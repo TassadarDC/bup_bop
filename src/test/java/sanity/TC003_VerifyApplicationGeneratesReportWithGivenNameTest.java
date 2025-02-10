@@ -1,10 +1,10 @@
 package sanity;
 
-import com.pinger.automation.core.factories.PingerTestDataFactory;
-import com.pinger.automation.core.helpers.BSL;
+import com.pinger.automation.core.factories.TestDataDtoFactory;
+import com.pinger.automation.core.helpers.executable.PingerExecutableHelper;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.enums.Endpoint;
-import com.pinger.automation.utils.FileUtils;
+import com.pinger.automation.utils.PingerFileUtils;
 import functional.BasePingTests;
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -18,14 +18,14 @@ public class TC003_VerifyApplicationGeneratesReportWithGivenNameTest extends Bas
 
     @BeforeClass
     public void beforeClass() {
-        testDataDto = PingerTestDataFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
+        testDataDto = TestDataDtoFactory.createTestDataDto(this.getClass(), Endpoint.GOOGLE_DNS);
     }
 
     @Test()
     @Description("Application successfully creates file with given name.")
     public void test() {
-        BSL.pingerExecutableHelper.executePinger(testDataDto).execute();
-        File report = FileUtils.getFile(testDataDto.getReport().getPath());
+        PingerExecutableHelper.getPingerClient(testDataDto).execute();
+        File report = PingerFileUtils.getFile(testDataDto.getReport().getPath());
 
         Assert.assertTrue(report.getName().startsWith(testDataDto.getReport().getName()));
         cleanUpGeneratedFiles(testDataDto);
