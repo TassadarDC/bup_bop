@@ -1,4 +1,4 @@
-package com.pinger.automation.utils.annotations;
+package com.pinger.automation.core.enums.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

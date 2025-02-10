@@ -1,8 +1,8 @@
 package functional;
 
+import com.pinger.automation.core.enums.annotations.Defect;
 import com.pinger.automation.utils.AppRunner;
 import com.pinger.automation.utils.PingerAppConfig;
-import com.pinger.automation.utils.annotations.Defect;
 import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;

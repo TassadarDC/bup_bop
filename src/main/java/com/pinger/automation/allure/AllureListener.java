@@ -1,6 +1,6 @@
 package com.pinger.automation.allure;
 
-import com.pinger.automation.utils.annotations.Defect;
+import com.pinger.automation.core.enums.annotations.Defect;
 import io.qameta.allure.Allure;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;

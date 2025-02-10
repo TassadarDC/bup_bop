@@ -109,6 +109,10 @@ cd pinger-automation
 
 ### 3.3 Install Dependencies
 
+If you're running tests from Intellij Idea - turn on 'Annotation Processing'
+Preferences->Build,Execution,Deployment->Compiler->Annotation Processors.
+before executing command as follows.
+
 ```sh
 mvn clean install
 ```
