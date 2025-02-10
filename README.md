@@ -39,11 +39,7 @@ that pings endpoints and generates reports.
 - **Generates JSON reports** and validates them.
 - **Uses Maven and TestNG** for test execution.
 - **Provides Allure reports** for test results.
-
-### **Who Can Use This?**
-
-This guide assumes **no prior Java knowledge**. If you can follow instructions, you can run the tests!
-
+  ukz
 ---
 
 ## 2. Prerequisites for Running Tests Locally
@@ -52,7 +48,11 @@ Before you start, **install the following tools**:
 
 ### Required Software:
 
-### 2.1 Java Development Kit (JDK 21+)
+### 2.1 Linux Os or Mac Os
+
+### 2.2 IntelliJ IDEA
+
+### 2.3 Java Development Kit (JDK 21+)
 
 - Download: [Temurin JDK](https://adoptium.net/en-GB/temurin/releases/?version=21&package=jdk&os=linux)
 - Verify installation:
@@ -61,7 +61,7 @@ Before you start, **install the following tools**:
 java -version
 ```
 
-### 2.2 Apache Maven (Build Tool)
+### 2.4 Apache Maven (Build Tool)
 
 - Download: [Maven Official Site](https://maven.apache.org/)
 - Verify installation:
@@ -70,7 +70,7 @@ java -version
 mvn -version
 ```
 
-### 2.3 Git (For Cloning the Repository)
+### 2.5 Git (For Cloning the Repository)
 
 - Download: [Git Website](https://git-scm.com/)
 - Verify installation:
@@ -79,7 +79,7 @@ mvn -version
 git --version
 ```
 
-### 2.4 Allure Report (For Viewing Test Results)
+### 2.6 Allure Report (For Viewing Test Results)
 
 - Install Allure:
 
@@ -123,7 +123,7 @@ Preferences -> Build, Execution, Deployment -> Compiler -> Annotation Processors
 Then, execute:
 
 ```sh
-mvn clean install
+mvn clean package -DskipTests
 ```
 
 ### 3.4 Compile the Pinger App
@@ -192,6 +192,14 @@ mvn -Dtest=TTC007_VerifyPingerFlowWithValidReportTest test
 ```sh
 mvn test -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
 ```
+
+### 4.3 Run Tests using IntelliJ IDEA
+
+#### 4.3.1. Open project using IntelliJ IDEA
+
+#### 4.3.2. Install Lombok Plugin (Settings -> Plugins)
+
+#### 4.3.3. Right click on any test case or folder and Run test by choosing 'Run' option
 
 ---
 

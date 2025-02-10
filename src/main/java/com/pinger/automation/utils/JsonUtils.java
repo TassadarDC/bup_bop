@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.pinger.automation.core.model.CustomException;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,7 @@ public final class JsonUtils {
             Objects.requireNonNull(object);
             return getObjectWriter().writeValueAsString(object);
         } catch (Throwable t) {
-            throw new CustomException("Cannot convert object to JSON string ", t);
+            throw new RuntimeException("Cannot convert object to JSON string ", t);
         }
     }
 
