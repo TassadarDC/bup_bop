@@ -1,6 +1,7 @@
 package com.pinger.automation.core.model.clients;
 
 import com.pinger.automation.utils.AppRunner;
+import io.qameta.allure.Allure;
 
 public abstract class ExecutableClient<O> {
     private final String EXECUTABLE;
@@ -18,6 +19,7 @@ public abstract class ExecutableClient<O> {
     public abstract O processValidScenario();
 
     public String execute() {
+        Allure.step(String.format("Running %s application with %s %s parameters.", EXECUTABLE, DATA_FILE_NAME, RESULTS_FILE_NAME));
         return AppRunner.runApplication(EXECUTABLE, WORKING_DIRECTORY, DATA_FILE_NAME, RESULTS_FILE_NAME);
     }
 }
