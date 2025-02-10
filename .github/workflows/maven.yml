@@ -38,7 +38,15 @@ jobs:
           GOOS=linux GOARCH=amd64 go build -o pinger main.go
           chmod +x pinger
           mv pinger ../src/main/resources/testData
-           
+    - name: Debug Networking in GitHub Actions
+      run: |
+         echo "Checking ping installation..."
+         which ping || echo "Ping not found"
+         echo "Testing ICMP Ping..."
+         ping -c 1 8.8.8.8 || echo "ICMP Ping failed (blocked?)"
+         echo "Testing TCP Connectivity..."
+         nc -zv google.com 80 || echo "TCP Connection failed"
+         
     - name: Run Tests
       run: mvn clean test
       
