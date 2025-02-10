@@ -6,6 +6,7 @@ import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
+import com.pinger.automation.utils.annotations.Defect;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,7 +25,8 @@ public class TC007_VerifyPingerFlowWithValidReportTest extends BasePingTests {
     }
 
     @Test()
-    @Description("Positive case scenario")
+    @Defect(ids = {"DF_001", "DF_002", "DF_003"})
+    @Description("Base positive case scenario.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);

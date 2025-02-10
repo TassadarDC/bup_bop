@@ -6,6 +6,7 @@ import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
+import com.pinger.automation.utils.annotations.Defect;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,6 +25,7 @@ public class TC017_VerifyPingerFlowWithDuplicatesTest extends BasePingTests {
     }
 
     @Test()
+    @Defect(ids = {"DF_007"})
     @Description("Should not execute pings for duplicated endpoints")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();

@@ -6,6 +6,7 @@ import com.pinger.automation.core.model.entites.dto.EndpointDto;
 import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
+import com.pinger.automation.utils.annotations.Defect;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,13 +24,17 @@ public class TC016_VerifyElevenEndpointsProcessingTest extends BasePingTests {
         List<EndpointDto> list = Arrays.stream(Endpoint.values())
                 .map(EndpointDto::new)
                 .toList();
+        if (list.size() > 11) {
+            list.subList(0, 11);
+        }
 
         configDto.setMaxPings(3).setMinSuccessfulPings(2).setEndpoints(list);
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
     @Test()
-    @Description("Positive case scenario")
+    @Defect(ids = {"DF_004"})
+    @Description("Execution of config file that has more than 10 endpoints.")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);

@@ -14,6 +14,7 @@ import org.testng.Assert;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 
 import static com.pinger.automation.utils.PingerAppConfig.getPingerExecutable;
 import static com.pinger.automation.utils.PingerAppConfig.getPingerWorkingDirectory;
@@ -59,10 +60,10 @@ public class PingerClient extends ExecutableClient<ReportDto> {
 
         //Validate min/max pings
         verifier.assertEquals(actual.getMinSuccessfulPings(), expected.getMinSuccessfulPings(), "Verity min successful pings.");
-        verifier.assertTrue(actual.getMaxPings() <= expected.getMaxPings(), "Verity max successful pings is less then successful.");
+        verifier.assertTrue(actual.getMaxPings() <= expected.getMaxPings(), "Verity max successful pings is less or equal to successful ones.");
 
         //Validate that report does not contain duplicates
-//        verifier.assertTrue(new HashSet<>(actual.getEntries()).size() == actual.getEntries().size(), "Verify that report does not contain duplicates.");
+        verifier.assertTrue(new HashSet<>(actual.getEntries()).size() == actual.getEntries().size(), "Verify that report does not contain duplicates.");
 
         //Validate total count of entries (report should contain only values for endpoint where ignore = false)
         verifier.assertTrue(actual.getEntries().stream().map(EntryDto::getEndpoint).toList().containsAll(expected.getEndpoints().stream().filter(x -> !x.isIgnore()).toList()), "Verify that report contains all not ignored endpoints.");// bug
@@ -84,8 +85,7 @@ public class PingerClient extends ExecutableClient<ReportDto> {
             }
             log.warn("Verifying entry: {}.", actualEntry);
 
-            //TODO uncomment
-            //verifier.assertEquals(actualEntry.getEndpoint(), expectedEndpoint, "Assert endpoint data."); - BUG with ignored endpoints
+            verifier.assertEquals(actualEntry.getEndpoint(), expectedEndpoint, "Assert endpoint data.");
             verifier.assertTrue(actualEntry.getTotalPings() <= expected.getMaxPings(), "Assert actual total vs maximum successful pings.");
             verifier.assertTrue(actualEntry.getSuccessfulPings() <= expected.getMaxPings(), "Successful pings count is >= maximum pings.");
 

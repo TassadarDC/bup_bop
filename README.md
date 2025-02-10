@@ -9,21 +9,21 @@ that pings endpoints and generates reports.
 
 1. [Overview](#1-overview)
 2. [Prerequisites](#2-prerequisites)
-    - [Java Development Kit (JDK 21+)](#21-java-development-kit-jdk-21)
-    - [Apache Maven](#22-apache-maven-build-tool)
-    - [Git](#23-git-for-cloning-the-repository)
-    - [Allure Report](#24-allure-report-for-viewing-test-results)
+   - [Java Development Kit (JDK 21+)](#21-java-development-kit-jdk-21)
+   - [Apache Maven](#22-apache-maven-build-tool)
+   - [Git](#23-git-for-cloning-the-repository)
+   - [Allure Report](#24-allure-report-for-viewing-test-results)
 3. [Installation](#3-installation)
-    - [Clone the Repository](#31-clone-the-repository)
-    - [Navigate to the Project Folder](#32-navigate-to-the-project-folder)
-    - [Install Dependencies](#33-install-dependencies)
+   - [Clone the Repository](#31-clone-the-repository)
+   - [Navigate to the Project Folder](#32-navigate-to-the-project-folder)
+   - [Install Dependencies](#33-install-dependencies)
 4. [Running Tests](#4-running-tests)
-    - [Run All Tests](#41-run-all-tests)
-    - [Run a Specific Test](#42-run-a-specific-test)
-    - [Run Tests with Logging](#43-run-tests-with-logging)
+   - [Run All Tests](#41-run-all-tests)
+   - [Run a Specific Test](#42-run-a-specific-test)
+   - [Run Tests with Logging](#43-run-tests-with-logging)
 5. [Viewing Test Reports](#5-viewing-test-reports)
-    - [View Reports in the Console](#51-view-reports-in-the-console)
-    - [View Reports in Allure](#52-view-reports-in-allure)
+   - [View Reports in the Console](#51-view-reports-in-the-console)
+   - [View Reports in Allure](#52-view-reports-in-allure)
 
 ---
 
@@ -82,6 +82,7 @@ git --version
 
 ```sh
 brew install allure    # macOS
+sudo apt update && sudo apt install allure    # Linux
 ```
 
 - Verify installation:
@@ -150,3 +151,4 @@ Test results will be printed in the terminal.
 
 ```sh
 allure serve target/allure-results
+```

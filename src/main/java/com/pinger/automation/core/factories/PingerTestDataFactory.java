@@ -7,9 +7,11 @@ import com.pinger.automation.core.model.entites.dto.report.PingerReportFile;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.FileUtils;
 import com.pinger.automation.utils.PingerAppConfig;
+import io.qameta.allure.Allure;
 
 public class PingerTestDataFactory {
     private static final PingerConfigDataDtoFactory PINGER_CONFIG_DATA_DTO_FACTORY = new PingerConfigDataDtoFactory();
+
     public static TestDataDto createTestDataDto(Class clazz, Endpoint endpoint) {
         //Generate dto for test config data
         ConfigDto configDto = PINGER_CONFIG_DATA_DTO_FACTORY.getPingDataDto(endpoint);
@@ -17,6 +19,7 @@ public class PingerTestDataFactory {
     }
 
     public static TestDataDto createTestDataDto(Class clazz, ConfigDto configDto) {
+        Allure.step("Generating test data.");
         String directory = PingerAppConfig.getPingerWorkingDirectory();
         String configName = clazz.getSimpleName() + "Config.json";
         String reportName = clazz.getSimpleName() + "Report.json";
@@ -38,6 +41,7 @@ public class PingerTestDataFactory {
         TestDataDto dataFile = new TestDataDto();
         dataFile.setConfig(pingerConfigFile);
         dataFile.setReport(reportFile);
+        Allure.step(String.format("Generated %s.", dataFile));
         return dataFile;
     }
 }

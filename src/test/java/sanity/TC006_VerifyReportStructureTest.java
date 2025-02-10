@@ -7,6 +7,7 @@ import com.pinger.automation.core.model.entites.dto.TestDataDto;
 import com.pinger.automation.core.model.entites.dto.config.ConfigDto;
 import com.pinger.automation.core.model.enums.Endpoint;
 import com.pinger.automation.utils.PingerAppConfig;
+import com.pinger.automation.utils.annotations.Defect;
 import functional.BasePingTests;
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -27,10 +28,11 @@ public class TC006_VerifyReportStructureTest extends BasePingTests {
                 .setMinSuccessfulPings(2)
                 .setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS), new EndpointDto(Endpoint.CLOUDFLARE_DNS)));
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
-        BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
+        BSL.pingerExecutableHelper.executePinger(testData).execute();
     }
 
     @Test()
+    @Defect(ids = {"DF_005"})
     @Description("Report JSON file matches expected schema.")
     public void test() {
         String jsonFilePath = testData.getReport().getPath();
