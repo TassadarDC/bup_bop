@@ -1,5 +1,6 @@
 package com.pinger.automation.utils;
 
+import io.qameta.allure.Allure;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
@@ -20,6 +21,7 @@ public class SoftVerifier extends Assertion {
             onAssertSuccess(a);
             if (a.getMessage() != null) {
                 log.info("Assertion Passed: " + a.getMessage());
+                Allure.step("Assertion Passed: " + a.getMessage());
             }
         } catch (AssertionError ex) {
             onAssertFailure(a, ex);
