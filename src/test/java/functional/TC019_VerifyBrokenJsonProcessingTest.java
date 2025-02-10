@@ -7,7 +7,7 @@ import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TC020_VerifyBrokenJsonProcessingTest extends BasePingTests {
+public class TC019_VerifyBrokenJsonProcessingTest extends BasePingTests {
 
     @Test()
     @Defect(ids = {"DF_006"})

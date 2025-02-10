@@ -7,7 +7,7 @@ import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TC021_VerifyInvalidFileTypeProcessingTest extends BasePingTests {
+public class TC020_VerifyInvalidFileTypeProcessingTest extends BasePingTests {
 
     @Test()
     @Defect(ids = {"DF_008"})

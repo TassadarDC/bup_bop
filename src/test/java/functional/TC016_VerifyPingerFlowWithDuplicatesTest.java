@@ -11,30 +11,22 @@ import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class TC016_VerifyElevenEndpointsProcessingTest extends BasePingTests {
+public class TC016_VerifyPingerFlowWithDuplicatesTest extends BasePingTests {
     private TestDataDto testData;
 
     @BeforeClass
     public void setupTestConfig() {
         ConfigDto configDto = new ConfigDto();
-
-        List<EndpointDto> list = Arrays.stream(Endpoint.values())
-                .map(EndpointDto::new)
-                .toList();
-        if (list.size() > 11) {
-            list.subList(0, 11);
-        }
-
-        configDto.setMaxPings(3).setMinSuccessfulPings(2).setEndpoints(list);
+        configDto.setMaxPings(3).setMinSuccessfulPings(1).setEndpoints(List.of(new EndpointDto(Endpoint.GOOGLE_DNS),
+                new EndpointDto(Endpoint.GOOGLE_DNS)));
         testData = PingerTestDataFactory.createTestDataDto(this.getClass(), configDto);
     }
 
     @Test()
-    @Defect(ids = {"DF_004"})
-    @Description("Execution of config file that has more than 10 endpoints.")
+    @Defect(ids = {"DF_007"})
+    @Description("Should not execute pings for duplicated endpoints")
     public void test() {
         BSL.pingerExecutableHelper.executePinger(testData).processValidScenario();
         cleanUpGeneratedFiles(testData);
